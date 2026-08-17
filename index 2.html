@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="GIRLCASINO — cute things are loading ♡" />
+  <title>GIRLCASINO ♡</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23fff'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='28' font-weight='700' fill='%23111111'%3EGC%3C/text%3E%3Cpath d='M48 46c-9-6-14-10-14-16 0-4 3-7 7-7 3 0 5 2 7 4 2-2 4-4 7-4 4 0 7 3 7 7 0 6-5 10-14 16Z' transform='scale(.42) translate(58 54)' fill='none' stroke='%23ff9fcb' stroke-width='4'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #111111;
+      --muted: #6f6f6f;
+      --line: #ececec;
+      --pink: #ffb8dc;
+      --pink-strong: #ff8fc5;
+      --pink-soft: #fff1f8;
+      --silver: #d9d9d9;
+      --max: 1180px;
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+
+    .shell {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: color-mix(in srgb, white 92%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(17,17,17,.06);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      white-space: nowrap;
+    }
+
+    .lang-toggle {
+      border: 1px solid var(--pink);
+      background: var(--pink-soft);
+      color: var(--fg);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: 76px;
+      height: 42px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform .18s ease, background .18s ease;
+      font-weight: 700;
+    }
+
+    .lang-toggle:hover { transform: translateY(-1px) scale(1.02); background: #ffe7f3; }
+    .lang-toggle:active { transform: scale(.97); }
+    .heart { color: var(--pink-strong); font-size: 1.1rem; line-height: 1; }
+
+    main { min-height: 100vh; }
+
+    .hero {
+      min-height: calc(100svh - 72px);
+      display: grid;
+      place-items: center;
+      padding: 72px 0 56px;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(8px);
+      opacity: .38;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .hero::before { width: 180px; height: 180px; background: var(--pink-soft); top: 15%; right: -50px; }
+    .hero::after { width: 120px; height: 120px; background: #f3f3f3; bottom: 12%; left: -38px; }
+
+    .hero-inner {
+      text-align: center;
+      width: min(100%, 760px);
+      margin: 0 auto;
+    }
+
+    .gc-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-weight: 700;
+      font-size: clamp(3.4rem, 12vw, 8rem);
+      letter-spacing: -0.08em;
+      line-height: .9;
+      margin-bottom: 28px;
+    }
+
+    .gc-mark .mini-heart {
+      color: var(--pink-strong);
+      font-weight: 400;
+      font-size: .42em;
+      transform: translateY(-.46em);
+      margin-left: 2px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 8vw, 5.4rem);
+      letter-spacing: -0.06em;
+      line-height: .95;
+      font-weight: 700;
+    }
+
+    .hero-copy {
+      margin: 22px auto 0;
+      max-width: 560px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2.3vw, 1.15rem);
+      line-height: 1.55;
+    }
+
+    .loading {
+      margin: 30px auto 0;
+      width: min(290px, 75vw);
+      height: 12px;
+      border: 1px solid var(--fg);
+      border-radius: 999px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .loading > span {
+      display: block;
+      height: 100%;
+      width: 58%;
+      background: var(--pink);
+      animation: pulse 2.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { width: 46%; }
+      to { width: 66%; }
+    }
+
+    .micro {
+      margin-top: 12px;
+      font-size: .78rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #8a8a8a;
+      font-weight: 700;
+    }
+
+    .join-section {
+      padding: 88px 0 96px;
+      border-top: 1px solid var(--line);
+    }
+
+    .join-card {
+      margin: 0 auto;
+      width: min(100%, 820px);
+      padding: clamp(28px, 6vw, 64px);
+      border: 1px solid #f0d7e5;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, #fff 0%, #fffafd 100%);
+      box-shadow: 0 20px 70px rgba(255, 143, 197, .08);
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--pink-strong);
+      font-size: .78rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .join-card h2 {
+      font-size: clamp(2rem, 6vw, 4.4rem);
+      margin: 0;
+      line-height: .95;
+      letter-spacing: -0.06em;
+    }
+
+    .join-card p {
+      max-width: 560px;
+      margin: 22px auto 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: clamp(.98rem, 2vw, 1.08rem);
+    }
+
+    .signup {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin: 30px auto 0;
+      max-width: 620px;
+    }
+
+    .signup input {
+      min-width: 0;
+      height: 54px;
+      padding: 0 18px;
+      border: 1px solid #d9d9d9;
+      border-radius: 999px;
+      outline: none;
+      background: white;
+      transition: border .2s ease, box-shadow .2s ease;
+    }
+
+    .signup input:focus {
+      border-color: var(--pink-strong);
+      box-shadow: 0 0 0 4px rgba(255,143,197,.15);
+    }
+
+    .signup button {
+      height: 54px;
+      border: none;
+      border-radius: 999px;
+      padding: 0 24px;
+      background: var(--fg);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .18s ease, background .18s ease;
+      white-space: nowrap;
+    }
+
+    .signup button:hover { transform: translateY(-1px); background: #2b2b2b; }
+    .signup button:active { transform: scale(.98); }
+
+    .legal {
+      font-size: .76rem !important;
+      margin-top: 14px !important;
+      color: #979797 !important;
+    }
+
+    .success {
+      display: none;
+      margin-top: 22px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      background: var(--pink-soft);
+      color: var(--fg);
+      font-weight: 700;
+    }
+
+    .socials {
+      padding: 72px 0 40px;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      width: min(100%, 820px);
+      margin: 0 auto;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 74px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px 22px;
+      transition: border-color .18s ease, transform .18s ease, background .18s ease;
+      background: #fff;
+    }
+
+    .social-link:hover {
+      transform: translateY(-2px);
+      border-color: var(--pink);
+      background: #fffafd;
+    }
+
+    .social-link strong { font-size: 1rem; }
+    .social-link span { color: var(--muted); font-size: .9rem; }
+    .arrow { color: var(--pink-strong) !important; font-size: 1.2rem !important; }
+
+    footer {
+      padding: 52px 0 30px;
+      color: #8b8b8b;
+      font-size: .82rem;
+    }
+
+    .footer-row {
+      border-top: 1px solid var(--line);
+      padding-top: 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand { color: var(--fg); font-weight: 700; letter-spacing: -0.03em; }
+    .contact { text-decoration: underline; text-underline-offset: 3px; }
+
+    .easter {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid #f4cfe2;
+      background: #fff8fc;
+      color: var(--pink-strong);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      z-index: 30;
+      transition: transform .2s ease;
+    }
+    .easter:hover { transform: rotate(-8deg) scale(1.06); }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 70px;
+      max-width: min(320px, calc(100vw - 36px));
+      padding: 14px 16px;
+      background: #111;
+      color: white;
+      border-radius: 16px;
+      font-size: .86rem;
+      line-height: 1.45;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 680px) {
+      .shell { width: min(calc(100% - 22px), var(--max)); }
+      .nav { min-height: 64px; }
+      .hero { min-height: calc(100svh - 64px); padding-top: 48px; }
+      .signup { grid-template-columns: 1fr; }
+      .signup button { width: 100%; }
+      .social-grid { grid-template-columns: 1fr; }
+      .join-section { padding: 64px 0 72px; }
+      .join-card { border-radius: 22px; }
+      .footer-row { align-items: flex-start; flex-direction: column; }
+    }
+
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .gc-form-wrap {
+      width: min(100%, 640px);
+      margin: 28px auto 0;
+    }
+
+    .gc-sib-container,
+    .sib-form,
+    #sib-container {
+      background: transparent !important;
+      border: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      max-width: none !important;
+      width: 100% !important;
+    }
+
+    .gc-input-wrap { position: relative; min-width: 0; }
+    .gc-input-wrap input { width: 100%; }
+
+    .signup .entry__error {
+      position: absolute;
+      left: 18px;
+      top: calc(100% + 6px);
+      font-size: .74rem !important;
+      color: #9d315f !important;
+      background: transparent !important;
+      border: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      text-align: left !important;
+      font-family: Arial, Helvetica, sans-serif !important;
+    }
+
+    .gc-form-message {
+      display: none;
+      margin: 0 auto 14px;
+      max-width: 620px !important;
+      border-radius: 18px !important;
+      border: 1px solid !important;
+      padding: 12px 16px !important;
+      font-family: Arial, Helvetica, sans-serif !important;
+      font-size: .9rem !important;
+      text-align: center !important;
+    }
+    .gc-form-message--error { color: #7e244d !important; background: #fff3f8 !important; border-color: #f4c1d8 !important; }
+    .gc-form-message--success { color: #111 !important; background: var(--pink-soft) !important; border-color: var(--pink) !important; }
+    .gc-form-message .sib-form-message-panel__text { display: block !important; }
+
+    .signup .sib-form-block__button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .signup .progress-indicator__icon { width: 16px; height: 16px; fill: currentColor; }
+
+    @media (max-width: 640px) {
+      .gc-form-wrap { margin-top: 22px; }
+      .signup .entry__error { position: static; display: block; margin-top: 7px !important; padding-left: 4px !important; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell nav">
+      <a class="brand" href="#top" aria-label="GIRLCASINO home">GIRLCASINO♡</a>
+      <button class="lang-toggle" id="langToggle" type="button" aria-label="Trocar para português">
+        <span class="heart">♡</span><span id="langCode">EN</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell hero-inner">
+        <div class="gc-mark" aria-label="GC heart">GC<span class="mini-heart">♡</span></div>
+        <h1>GIRLCASINO</h1>
+        <p class="hero-copy" data-pt="alguma coisa fofa está carregando..." data-en="something cute is loading...">something cute is loading...</p>
+        <div class="loading" aria-hidden="true"><span></span></div>
+        <div class="micro">@girlcasino.mp3 · online</div>
+      </div>
+    </section>
+
+    <section class="join-section" id="join">
+      <div class="shell">
+        <div class="join-card">
+          <div class="eyebrow"><span>♡</span> <span data-pt="pré-debut" data-en="pre-debut">pre-debut</span></div>
+          <h2>JOIN THE<br>GIRLCASINO ♡</h2>
+          <p data-pt="você chegou cedo. entre para receber música, segredos, demos e coisinhas da internet antes de todo mundo." data-en="you got here early. join for music, secrets, demos & cute things from the internet before everyone else.">you got here early. join for music, secrets, demos & cute things from the internet before everyone else.</p>
+
+          <div class="gc-form-wrap" aria-label="JOIN THE GIRLCASINO mailing list">
+            <div id="error-message" class="sib-form-message-panel gc-form-message gc-form-message--error">
+              <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                <span class="sib-form-message-panel__inner-text" data-pt="erro! tenta de novo ♡" data-en="oops! try again ♡">oops! try again ♡</span>
+              </div>
+            </div>
+
+            <div id="success-message" class="sib-form-message-panel gc-form-message gc-form-message--success">
+              <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                <span class="sib-form-message-panel__inner-text" data-pt="você entrou ♡" data-en="you're in ♡">you're in ♡</span>
+              </div>
+            </div>
+
+            <div id="sib-container" class="gc-sib-container">
+              <form id="sib-form" class="signup" method="POST" action="https://30d34187.sibforms.com/serve/MUIFAAi6TiFN0ecqjsdzv5SwmcZ2BRWNJ8_hQJ0frWEDszMfnHzgsXzaZ38P6Okk8x1x8HMUPAgq-Kc6tl92dD6MXAJQhBsU2gOPV0dUgHxTddVFfRaDmqWOdFclgWFEuirRPdFdKgAeh28tAWRP6b8oHZ2m5OCtCrPjpnqjmsCGqPyxQPuOkyLw_qGj-8X3B_6ouWIJLPAeuaWE8w==" data-type="subscription">
+                <div class="gc-input-wrap">
+                  <label class="sr-only" for="EMAIL" data-pt="Seu e-mail" data-en="Your email">Your email</label>
+                  <input type="email" id="EMAIL" name="EMAIL" autocomplete="email" placeholder="your@email.com" data-placeholder-pt="seu@email.com" data-placeholder-en="your@email.com" data-required="true" required>
+                  <label class="entry__error entry__error--primary gc-field-error"></label>
+                </div>
+
+                <button class="sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">
+                  <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" aria-hidden="true"><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg>
+                  <span data-pt="ENTRAR ♡" data-en="JOIN ♡">JOIN ♡</span>
+                </button>
+
+                <input type="text" name="email_address_check" value="" class="input--hidden">
+                <input type="hidden" name="locale" id="brevoLocale" value="en">
+              </form>
+            </div>
+          </div>
+
+          <p class="legal" data-pt="sem spam. juro de dedinho ♡ · ao entrar, você concorda em receber novidades do GIRLCASINO e pode sair quando quiser." data-en="no spam. pinky promise ♡ · by joining, you agree to receive GIRLCASINO updates and can unsubscribe anytime.">no spam. pinky promise ♡ · by joining, you agree to receive GIRLCASINO updates and can unsubscribe anytime.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="socials">
+      <div class="shell">
+        <div class="social-grid">
+          <a class="social-link" href="https://instagram.com/girlcasino.mp3" target="_blank" rel="noreferrer">
+            <div><strong>Instagram</strong><br><span>@girlcasino.mp3</span></div><span class="arrow">↗</span>
+          </a>
+          <a class="social-link" href="https://www.tiktok.com/@girlcasino.mp3" target="_blank" rel="noreferrer">
+            <div><strong>TikTok</strong><br><span>@girlcasino.mp3</span></div><span class="arrow">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-row">
+      <div>
+        <div class="footer-brand">GIRLCASINO♡</div>
+        <div style="margin-top:8px">GC♡ 2026 · made on the internet</div>
+      </div>
+      <a class="contact" href="mailto:girlcasino.bookings@gmail.com">girlcasino.bookings@gmail.com</a>
+    </div>
+  </footer>
+
+  <button class="easter" id="easter" type="button" aria-label="Secret">♡</button>
+  <div class="toast" id="toast">secret_folder is empty... for now ♡</div>
+
+  <script>
+    const toggle = document.getElementById('langToggle');
+    const code = document.getElementById('langCode');
+    const easter = document.getElementById('easter');
+    const toast = document.getElementById('toast');
+
+    let lang = localStorage.getItem('gcLang') || 'en';
+
+    function applyLanguage() {
+      document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+      code.textContent = lang.toUpperCase();
+      document.querySelectorAll('[data-pt][data-en]').forEach(el => {
+        el.textContent = el.dataset[lang];
+      });
+      document.querySelectorAll('[data-placeholder-pt][data-placeholder-en]').forEach(el => {
+        el.placeholder = el.dataset['placeholder' + (lang === 'pt' ? 'Pt' : 'En')];
+      });
+      const brevoLocale = document.getElementById('brevoLocale');
+      if (brevoLocale) brevoLocale.value = lang === 'pt' ? 'pt' : 'en';
+      toggle.setAttribute('aria-label', lang === 'pt' ? 'Switch to English' : 'Trocar para português');
+    }
+
+    toggle.addEventListener('click', () => {
+      lang = lang === 'pt' ? 'en' : 'pt';
+      localStorage.setItem('gcLang', lang);
+      applyLanguage();
+      toggle.animate([
+        { transform: 'scale(1) rotate(0)' },
+        { transform: 'scale(1.08) rotate(-6deg)' },
+        { transform: 'scale(1) rotate(0)' }
+      ], { duration: 260, easing: 'ease-out' });
+    });
+
+    easter.addEventListener('click', () => {
+      toast.textContent = lang === 'pt' ? 'secret_folder está vazia... por enquanto ♡' : 'secret_folder is empty... for now ♡';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    });
+
+    applyLanguage();
+  </script>
+
+  <script>
+    window.REQUIRED_CODE_ERROR_MESSAGE = 'Choose a country code';
+    window.LOCALE = 'en';
+    window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = 'Please check your email and try again.';
+    window.REQUIRED_ERROR_MESSAGE = 'This field cannot be left blank.';
+    window.GENERIC_INVALID_MESSAGE = 'Please check the information and try again.';
+    window.INVALID_NUMBER = 'Please enter a valid number.';
+    window.INVALID_DATE = 'Please enter a valid date';
+    window.REQUIRED_MULTISELECT_MESSAGE = 'Select at least one option';
+    window.translation = { common: { selectedList: '{quantity} list selected', selectedLists: '{quantity} lists selected', selectedOption: '{quantity} selected', selectedOptions: '{quantity} selected' } };
+    var AUTOHIDE = Boolean(0);
+  </script>
+  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+</body>
+</html>
